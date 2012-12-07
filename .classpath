@@ -17,5 +17,5 @@
 	<classpathentry kind="lib" path="tomcat5-lib/naming-resources.jar"/>
 	<classpathentry kind="lib" path="tomcat5-lib/servlet-api.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="output" path="build/classes"/>
+	<classpathentry kind="output" path="build"/>
 </classpath>
