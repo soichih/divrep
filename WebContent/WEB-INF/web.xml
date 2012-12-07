@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>divrep</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+          <display-name>DivRepServlet</display-name>
+          <servlet-name>DivRepServlet</servlet-name>
+          <servlet-class>com.divrep.DivRepServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+          <servlet-name>DivRepServlet</servlet-name>
+          <url-pattern>/divrep</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+		<description>
+		</description>
+		<display-name>Samples</display-name>
+		<servlet-name>Samples</servlet-name>
+		<servlet-class>com.divrep.samples.Samples</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Samples</servlet-name>
+		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
+    
+	<servlet>
+		<description>
+		</description>
+		<display-name>HelloWorldServlet</display-name>
+		<servlet-name>HelloWorldServlet</servlet-name>
+		<servlet-class>com.divrep.samples.HelloWorldServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HelloWorldServlet</servlet-name>
+		<url-pattern>/helloworld</url-pattern>
+	</servlet-mapping>
+    
+    	<servlet>
+		<description>
+		</description>
+		<display-name>CalculatorServlet</display-name>
+		<servlet-name>CalculatorServlet</servlet-name>
+		<servlet-class>com.divrep.samples.CalculatorServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CalculatorServlet</servlet-name>
+		<url-pattern>/calculator</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>FormServlet</display-name>
+		<servlet-name>FormServlet</servlet-name>
+		<servlet-class>com.divrep.samples.FormServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FormServlet</servlet-name>
+		<url-pattern>/form</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>PuzzleGameServlet</display-name>
+		<servlet-name>PuzzleGameServlet</servlet-name>
+		<servlet-class>com.divrep.samples.PuzzleGameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PuzzleGameServlet</servlet-name>
+		<url-pattern>/puzzle</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>TreeServlet</display-name>
+		<servlet-name>TreeServlet</servlet-name>
+		<servlet-class>com.divrep.samples.TreeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TreeServlet</servlet-name>
+		<url-pattern>/tree</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>TradingGameServlet</display-name>
+		<servlet-name>TradingGameServlet</servlet-name>
+		<servlet-class>com.divrep.samples.TradingGameServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>ButtonServlet</display-name>
+		<servlet-name>ButtonServlet</servlet-name>
+		<servlet-class>com.divrep.samples.ButtonServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ButtonServlet</servlet-name>
+		<url-pattern>/button</url-pattern>
+	</servlet-mapping>	
+    
+	<servlet>
+		<description>
+		</description>
+		<display-name>SelectServlet</display-name>
+		<servlet-name>SelectServlet</servlet-name>
+		<servlet-class>com.divrep.samples.SelectServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SelectServlet</servlet-name>
+		<url-pattern>/select</url-pattern>
+	</servlet-mapping>	
+	        
+	<servlet>
+		<description>
+		</description>
+		<display-name>DialogServlet</display-name>
+		<servlet-name>DialogServlet</servlet-name>
+		<servlet-class>com.divrep.samples.DialogServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DialogServlet</servlet-name>
+		<url-pattern>/dialog</url-pattern>
+	</servlet-mapping>	
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>ColorPickerServlet</display-name>
+		<servlet-name>ColorPickerServlet</servlet-name>
+		<servlet-class>com.divrep.samples.ColorPickerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ColorPickerServlet</servlet-name>
+		<url-pattern>/colorpicker</url-pattern>
+	</servlet-mapping>	
+	        	       
+	<servlet>
+		<description>
+		</description>
+		<display-name>SliderServlet</display-name>
+		<servlet-name>SliderServlet</servlet-name>
+		<servlet-class>com.divrep.samples.SliderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SliderServlet</servlet-name>
+		<url-pattern>/slider</url-pattern>
+	</servlet-mapping>	 
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>TextBox</display-name>
+		<servlet-name>TextBox</servlet-name>
+		<servlet-class>com.divrep.samples.TextBox</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TextBox</servlet-name>
+		<url-pattern>/textbox</url-pattern>
+	</servlet-mapping>	
+     
+ 	<servlet>
+		<description>
+		</description>
+		<display-name>LocationSelector</display-name>
+		<servlet-name>LocationSelector</servlet-name>
+		<servlet-class>com.divrep.samples.LocationSelector</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LocationSelector</servlet-name>
+		<url-pattern>/location</url-pattern>
+	</servlet-mapping>	    
+</web-app>
