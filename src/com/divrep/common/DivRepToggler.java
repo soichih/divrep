@@ -6,7 +6,7 @@ import com.divrep.DivRepEvent;
 import com.divrep.i18n.Labels;
 
 //User must override createContent() to initialize the sub content
-abstract public class DivRepToggler extends DivRep {
+abstract public class DivRepToggler extends DivRepFormElement {
 	Labels lab = Labels.getInstance();
 	
 	String show_html;

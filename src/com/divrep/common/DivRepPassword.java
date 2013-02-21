@@ -9,9 +9,14 @@ import com.divrep.DivRepEvent;
 public class DivRepPassword extends DivRepFormElement<String> {
 	
 	private int width = 400;
-	public void setWidth(int _width)
+	public void setWidth(int width)
 	{
-		width = _width;
+		this.width = width;
+	}
+	
+	private String event_trigger = "onchange";//onkeyup
+	public void setEventTrigger(String event_trigger) {
+		this.event_trigger = event_trigger;
 	}
 	
 	public DivRepPassword(DivRep parent) {
@@ -38,9 +43,10 @@ public class DivRepPassword extends DivRepFormElement<String> {
 				disabled_text = "disabled";
 			}
 			
+
 			int random = (int)(Math.random()*10000);
 			out.write("<input id=\""+getNodeID()+"_input"+random+"\" type=\"password\" style=\"width: "+width+
-					"px;\" onkeyup=\"divrep('"+getNodeID()+"', event, this.value);\">");
+					"px;\" "+event_trigger+"=\"divrep('"+getNodeID()+"', event, this.value);\">");
 
 			if(isRequired()) {
 				out.print(lab.RequiredFieldNote());
