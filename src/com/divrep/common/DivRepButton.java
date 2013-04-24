@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import com.divrep.DivRep;
 import com.divrep.DivRepEvent;
 
-public class DivRepButton extends DivRep {
+public class DivRepButton extends DivRepFormElement {
 	String title;
 	
 	String tooltip = null;
@@ -51,7 +51,7 @@ public class DivRepButton extends DivRep {
 		title = _title;
 	}
 	public void render(PrintWriter out) {
-		//TODO -- support Hidden flag
+		if(isHidden()) return; //TODO - not sure if we need to display display: none button
 
 		String js = "if(!$(this).hasClass(\"divrep_processing\")) { divrep(\""+getNodeID()+"\", event); } return false;";
 		if(confirm) {

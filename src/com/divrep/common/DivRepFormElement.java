@@ -7,7 +7,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import com.divrep.DivRep;
 import com.divrep.DivRepEvent;
-import com.divrep.DivRepPage;
 import com.divrep.i18n.Labels;
 import com.divrep.validator.DivRepIValidator;
 
@@ -54,7 +53,7 @@ abstract public class DivRepFormElement<ValueType> extends DivRep {
 		public void render(PrintWriter out) {
 			out.write("<div class=\"divrep_inline\" id=\""+getNodeID()+"\">");
 			if(error != null) {
-				out.write("<p class='divrep_elementerror divrep_round'><span class=\"divrep_icon_error\" style=\"float: left; margin-right: 0.3em;\"/>"+StringEscapeUtils.escapeHtml(error)+"</p>");
+				out.write("<p class='divrep_elementerror divrep_round'><span class=\"divrep_icon_error\" style=\"float: left; margin-right: 0.3em;\"/>"+error+"</p>");
 			}
 			out.write("</div>");
 		}

@@ -108,7 +108,7 @@ public class FormServlet extends HttpServlet {
 		//When user clicks submit and if the form passes validations, this function will be called
 		protected Boolean doSubmit() {
 			//Do sometihng with the value
-			alert("Thank you, " + name.getValue() + " for choosing " + auto.getValue());
+			alert("Thank you, " + name.getValue() + " for choosing " + auto.getValue() + "and the data is "  + date.getValue().toString());
 			
 			//return false to stay on the form
 			return false;

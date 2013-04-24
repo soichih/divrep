@@ -24,6 +24,12 @@ public class DivRepPassword extends DivRepFormElement<String> {
 		addClass("divrep_password");
 	}
 	
+	//only repoopulate password when transmitte via https
+	private Boolean repopulate = false;
+	public void setRepopulate(Boolean b) {
+		repopulate = b;
+	}
+	
 	public void render(PrintWriter out) {
 		out.print("<div ");
 		renderClass(out);
@@ -48,6 +54,14 @@ public class DivRepPassword extends DivRepFormElement<String> {
 			out.write("<input id=\""+getNodeID()+"_input"+random+"\" type=\"password\" style=\"width: "+width+
 					"px;\" "+event_trigger+"=\"divrep('"+getNodeID()+"', event, this.value);\">");
 
+			//only repopulate password if requested
+			if(repopulate) {
+				out.write("<script type=\"text/javascript\">\n");
+				out.write("var input = $(\"#"+getNodeID()+"_input"+random+"\");\n");
+				out.write("input.val(\""+StringEscapeUtils.escapeJavaScript(current_value)+"\");");
+				out.write("</script>");
+			}
+			
 			if(isRequired()) {
 				out.print(lab.RequiredFieldNote());
 			}
