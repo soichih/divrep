@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
-    <jar path="C:/Users/soichih/Desktop/divrep.jar"/>
+    <jar path="oim/WebContent/WEB-INF/lib/divrep.jar"/>
     <options buildIfNeeded="true" compress="true" descriptionLocation="/divrep/distribute.jardesc" exportErrors="false" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
