@@ -15,6 +15,7 @@ import com.divrep.common.DivRepCheckBox;
 import com.divrep.common.DivRepDate;
 import com.divrep.common.DivRepForm;
 import com.divrep.common.DivRepMoneyAmount;
+import com.divrep.common.DivRepReCaptcha;
 import com.divrep.common.DivRepTextArea;
 import com.divrep.common.DivRepTextBox;
 
@@ -58,6 +59,7 @@ public class FormServlet extends HttpServlet {
 		DivRepCheckBox check;
 		DivRepDate date;
 		DivRepMoneyAmount money;
+		DivRepReCaptcha recap;
 		
 		//SomeDivRep extra;
 		
@@ -103,6 +105,8 @@ public class FormServlet extends HttpServlet {
 			
 			money = new DivRepMoneyAmount(this);
 			money.allowPercentage(true);
+			
+			recap = new DivRepReCaptcha(this, "6LeVU-ESAAAAANeNZxPLhxsT0a5B7UJUBn8zHzBm", "6LeVU-ESAAAAAEwXRH5s1cZUDYL2buI0kUBqpYz7");
 		}
 		
 		//When user clicks submit and if the form passes validations, this function will be called

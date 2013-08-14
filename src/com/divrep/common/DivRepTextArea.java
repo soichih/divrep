@@ -6,7 +6,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import com.divrep.DivRep;
 import com.divrep.DivRepEvent;
-import com.divrep.i18n.Labels;
 
 public class DivRepTextArea extends DivRepFormElement<String>  {
 	
