@@ -28,10 +28,12 @@ public class DivRepLocationSelector extends DivRepFormElement<DivRepLocationSele
 		this.use_sensor = use_sensor;
 	}
 	
+	/*
 	boolean https = false;
 	public void setHttps(boolean https) {
 		this.https = https;
 	}
+	*/
 	
 	public class LatLng implements Serializable
 	{
@@ -48,6 +50,13 @@ public class DivRepLocationSelector extends DivRepFormElement<DivRepLocationSele
 		public int zoom;
 	}
 	
+	@Override
+	public void setDisabled(Boolean b)  {
+		super.setDisabled(b);
+		latitude_text.setDisabled(b);
+		longitude_text.setDisabled(b);
+	}
+	
 	//don't pass null values..
 	public void setValue(DivRepLocationSelector.LatLng value) {
 		super.setValue(value);
@@ -61,7 +70,7 @@ public class DivRepLocationSelector extends DivRepFormElement<DivRepLocationSele
 		this.target_image_url = target_image_url;
 		this.apikey = apikey;
 		this.use_sensor = use_sensor;
-		this.https = https;
+		//this.https = https;
 		
 		addClass("divrep_locationselector");
 		
@@ -96,6 +105,9 @@ public class DivRepLocationSelector extends DivRepFormElement<DivRepLocationSele
 	}
 
 	protected void onEvent(DivRepEvent e) {
+		if(isDisabled()) return;
+		//if(isHidden()) return;
+		
 		String newval = (String)e.value;
 		String coords[] = newval.split(",");
 		getValue().latitude = Double.parseDouble(coords[0]);
@@ -137,6 +149,10 @@ public class DivRepLocationSelector extends DivRepFormElement<DivRepLocationSele
 			out.write(" var mapOptions = {\n");
 			out.write(" zoom: "+zoom+",\n");
 			out.write(" scrollwheel: false,\n");
+			if(isDisabled()) {
+				out.write(" draggable: false,\n");
+				out.write(" disableDoubleClickZoom: true,\n");
+			}
 			out.write(" center: new google.maps.LatLng("+latitude_text.getValue()+", "+longitude_text.getValue()+"),\n");
 			out.write(" mapTypeId: google.maps.MapTypeId.ROADMAP\n");
 			out.write(" }\n");
@@ -148,11 +164,15 @@ public class DivRepLocationSelector extends DivRepFormElement<DivRepLocationSele
 			out.write("function gmap_load() {\n");
 			out.write(" var script = document.createElement(\"script\");\n");
 			out.write(" script.type = \"text/javascript\";\n");
+			/*
 			if(https) {
 				out.write(" script.src = \"https://maps.googleapis.com/maps/api/js?key="+apikey+"&sensor="+use_sensor+"&callback=gmap_init\";\n");			
 			} else {
 				out.write(" script.src = \"http://maps.googleapis.com/maps/api/js?key="+apikey+"&sensor="+use_sensor+"&callback=gmap_init\";\n");
 			}
+			*/
+			out.write(" script.src = \"//maps.googleapis.com/maps/api/js?key="+apikey+"&sensor="+use_sensor+"&callback=gmap_init\";\n");			
+
 			out.write("document.body.appendChild(script);\n");
 			out.write("}\n");
 			

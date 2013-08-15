@@ -39,10 +39,13 @@ public class LocationSelector extends HttpServlet {
 		new DivRepContainer(request) {
 			public void initPage(DivRepPage pageroot) {
 				final DivRepLocationSelector latlng = new DivRepLocationSelector(pageroot, "css/images/target.png", "AIzaSyAIommV_PJUjC36Y9wwdndFwqzz4QLhpTs");
-				latlng.setHttps(true);//set to true to load gmap via https
+				//latlng.setHttps(true);//set to true to load gmap via https
 				latlng.setLabel("Latitude / Longitude");
 				latlng.setValue(latlng.new LatLng(41.85, -87.65, 8));
 				latlng.setRequired(true);
+				
+				latlng.setDisabled(true);
+				
 				latlng.render(out);
 				
 				DivRepButton refresh = new DivRepButton(pageroot, "Invalidate");
