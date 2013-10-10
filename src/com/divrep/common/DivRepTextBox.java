@@ -16,17 +16,19 @@ import com.divrep.DivRepEvent;
 
 public class DivRepTextBox extends DivRepFormElement<String> {
 	
-	private int width = 400;
+	//private int width = 400;
 	
 	private String event_mode = "onchange"; //it could be set to use onkeyup 
 	public void setEventMode(String event_mode) {
 		this.event_mode = event_mode;
 	}
 	
+	/*
 	public void setWidth(int _width)
 	{
 		width = _width;
 	}
+	*/
 	
 	public DivRepTextBox(DivRep parent) {
 		super(parent);
@@ -72,8 +74,7 @@ public class DivRepTextBox extends DivRepFormElement<String> {
 			}
 			
 			int random = (int)(Math.random()*10000);
-			out.write("<input id=\""+getNodeID()+"_input"+random+"\" type=\"text\" style=\"width: "+width+
-					"px;\" "+event_mode+"=\"divrep('"+getNodeID()+"', event, this.value);\" sample=\""+
+			out.write("<input id=\""+getNodeID()+"_input"+random+"\" type=\"text\" "+event_mode+"=\"divrep('"+getNodeID()+"', event, this.value);\" sample=\""+
 					StringEscapeUtils.escapeHtml(sample)+"\"/ "+disabled_text+">");
 			out.write("<script type=\"text/javascript\">\n");
 

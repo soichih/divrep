@@ -365,7 +365,7 @@ public class CalculatorServlet extends HttpServlet {
 						result.redraw();
 						
 					}});
-				constant.setWidth(100);
+				//constant.setWidth(100);
 			}
 
 			public void render(PrintWriter out) {
