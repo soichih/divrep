@@ -30,6 +30,20 @@ public class DivRepTextBox extends DivRepFormElement<String> {
 	}
 	*/
 	
+	//use this to set input class (like bootstra's input-xlarge)
+	private ArrayList<String> input_classes = new ArrayList<String>();
+	public void addInputClass(String _class) {
+		input_classes.add(_class);
+	}
+	protected void renderInputClass(PrintWriter out) {
+		out.write("class=\"");
+		for(String _class : input_classes) {
+			out.write(_class);
+			out.write(" ");
+		}
+		out.write("\"");
+	}
+	
 	public DivRepTextBox(DivRep parent) {
 		super(parent);
 		addClass("divrep_textbox");
@@ -74,7 +88,9 @@ public class DivRepTextBox extends DivRepFormElement<String> {
 			}
 			
 			int random = (int)(Math.random()*10000);
-			out.write("<input id=\""+getNodeID()+"_input"+random+"\" type=\"text\" "+event_mode+"=\"divrep('"+getNodeID()+"', event, this.value);\" sample=\""+
+			out.write("<input ");
+			renderInputClass(out);
+			out.write("id=\""+getNodeID()+"_input"+random+"\" type=\"text\" "+event_mode+"=\"divrep('"+getNodeID()+"', event, this.value);\" sample=\""+
 					StringEscapeUtils.escapeHtml(sample)+"\"/ "+disabled_text+">");
 			out.write("<script type=\"text/javascript\">\n");
 
