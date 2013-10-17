@@ -23,13 +23,6 @@ public class DivRepTextBox extends DivRepFormElement<String> {
 		this.event_mode = event_mode;
 	}
 	
-	/*
-	public void setWidth(int _width)
-	{
-		width = _width;
-	}
-	*/
-	
 	//use this to set input class (like bootstra's input-xlarge)
 	private ArrayList<String> input_classes = new ArrayList<String>();
 	public void addInputClass(String _class) {
