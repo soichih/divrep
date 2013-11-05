@@ -16,7 +16,11 @@
 	<classpathentry kind="lib" path="tomcat5-lib/naming-factory.jar"/>
 	<classpathentry kind="lib" path="tomcat5-lib/naming-resources.jar"/>
 	<classpathentry kind="lib" path="tomcat5-lib/servlet-api.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/recaptcha4j-0.0.7.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build"/>
 </classpath>
