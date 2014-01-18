@@ -181,5 +181,18 @@
 	<servlet-mapping>
 		<servlet-name>LocationSelector</servlet-name>
 		<url-pattern>/location</url-pattern>
-	</servlet-mapping>	    
+	</servlet-mapping>	  
+	
+	 <servlet>
+		<description>
+		</description>
+		<display-name>Upload</display-name>
+		<servlet-name>Upload</servlet-name>
+		<servlet-class>com.divrep.samples.Upload</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Upload</servlet-name>
+		<url-pattern>/upload</url-pattern>
+	</servlet-mapping>	
+	  
 </web-app>

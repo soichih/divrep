@@ -62,6 +62,56 @@ function divrep(id, event, value, action) {
 	});
 }
 
+function divrep_fileupload(id, e) {
+	/* should I do any client side validation?
+    var file = e.files[0];
+    var name = file.name;
+    var size = file.size;
+    var type = file.type;
+
+    console.log(size);
+    console.log(name);
+    console.log(type);
+	*/
+    
+	//var filename = $(e).val();
+	
+	//set class while processing
+	$("#"+id).addClass("divrep_processing");
+	
+	var formData = new FormData();
+	for(var fid = 0; fid < e.files.length; ++fid) {
+		console.log(fid);
+		formData.append("file"+fid, e.files[fid]);
+	}
+	/*
+	var request = new XMLHttpRequest();
+	request.open("POST", "divrep?nodeid="+id);
+	request.send(formData);
+	*/
+	
+	//console.dir(formData);
+    $.ajax({
+    	type: "POST",
+        url: "divrep?nodeid="+id,
+        enctype: 'multipart/form-data',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: formData,
+		dataType: "script",//Evaluates the response as JavaScript and returns it as plain text. Disables caching unless option "cache" is used. Note: This will turn POSTs into GETs for remote-domain requests. 
+        success: function (msg) {
+            //alert("Data Uploaded: ");
+		    divrepClearProcessing();
+        },
+	    error: function (XMLHttpRequest, textStatus, errorThrown) {
+		    alert("Sorry! Server is having trouble processing your upload request.\n\n"+textStatus + ": " + errorThrown);
+		    divrepClearProcessing();
+	    }
+    });
+
+}
+
 function divrep_replace(node, content, id) 
 {
 	if(node.length == 0) {

@@ -2,6 +2,7 @@ package com.divrep.samples;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +17,9 @@ public class ColorPickerServlet extends HttpServlet {
 	{	
 		final PrintWriter out = response.getWriter();
 		out.write("<html><head>");
-
-		//Load jQuery
-		out.write("<script type=\"text/javascript\" src=\"jquery-1.7.1.min.js\"></script>");
-		out.write("<script type=\"text/javascript\" src=\"jquery-ui-1.8.18.custom.min.js\"></script>");
-		out.write("<link href=\"css/smoothness/jquery-ui-1.8.2.custom.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-
+		
+		Common.outputJquery(out);
+		
 		//Load DivRep Stuff
 		out.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"http://divrep.googlecode.com/files/divrep.css\" />");
 		out.write("<script type=\"text/javascript\" src=\"http://divrep.googlecode.com/files/divrep.js\"></script>");

@@ -24,11 +24,8 @@ public class FormServlet extends HttpServlet {
 	{	
 		final PrintWriter out = response.getWriter();
 		out.write("<html><head>");
-
-		//Load jQuery
-		out.write("<script type=\"text/javascript\" src=\"jquery-1.7.1.min.js\"></script>");
-		out.write("<script type=\"text/javascript\" src=\"jquery-ui-1.8.18.custom.min.js\"></script>");
-		out.write("<link href=\"css/smoothness-1.8.18/jquery-ui-1.8.18.custom.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+		
+		Common.outputJquery(out);
 
 		//Load DivRep Stuff
 		out.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/divrep.css\" />");

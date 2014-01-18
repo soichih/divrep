@@ -235,8 +235,7 @@ public abstract class DivRep implements Serializable {
 			//handle my event handler
 			onEvent(e);
 			notifyListener(e);
-			
-			
+						
 			//output page modified flag - I need to do this immediately or divrep_redirect call on other thread will be called first and the
 			//flag will not get update in time
 			if(page.isModified()) {
@@ -257,6 +256,38 @@ public abstract class DivRep implements Serializable {
 		}
 	}
 	
+	//this looks awefully similar to someparts on doGet()
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{			
+		if(System.getProperty("debug") != null) {
+			System.out.println(getClass().getName() + " post nodeid=" + nodeid);
+		}
+		
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/javascript");
+		
+		onPost(request, response);
+		
+		DivRepPage page = getPageRoot();
+		//output page modified flag - I need to do this immediately or divrep_redirect call on other thread will be called first and the
+		//flag will not get update in time
+		if(page.isModified()) {
+			out.write("divrep_modified(true);");
+		} else {
+			out.write("divrep_modified(false);");			
+		}
+		
+		//if redirect is set, we don't need to do any update
+		if(page.getRedirect() != null) {
+			out.write("divrep_redirect(\""+getRedirect()+"\");");
+			setRedirect(null);
+			return;
+		}
+
+		page.outputUpdatecode(out);
+		page.flushJavascript(out);//needs to emit *after* divrep_replace(s)
+	}
+	
 	//events are things like click, drag, change.. you are responsible for updating 
 	//the internal state of the target div, and framework will call outputUpdatecode()
 	//to emit re-load request which will then re-render the divs that are changed.
@@ -267,6 +298,9 @@ public abstract class DivRep implements Serializable {
 	//any internal state. it's like load but it doesn't return html necessary. it could
 	//be XML, JSON, Image, etc.. The framework will not emit any update code
 	protected void onRequest(HttpServletRequest request, HttpServletResponse response) {}
+	
+	//currently catch all for all post request made on a specific divrep node (used for upload, for example)
+	protected void onPost(HttpServletRequest request, HttpServletResponse response) {}
 	
 	//only set needupdate on myself - since load will redraw all its children
 	//once drawing is done, needudpate = false will be performec recursively
