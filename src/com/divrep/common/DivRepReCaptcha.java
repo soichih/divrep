@@ -8,8 +8,6 @@ import net.tanesha.recaptcha.ReCaptcha;
 import net.tanesha.recaptcha.ReCaptchaFactory;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
-import org.apache.commons.lang.StringEscapeUtils;
-
 import com.divrep.DivRep;
 import com.divrep.DivRepEvent;
 

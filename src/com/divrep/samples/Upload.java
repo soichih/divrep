@@ -32,13 +32,19 @@ public class Upload extends HttpServlet {
 	{	
 		final PrintWriter out = response.getWriter();
 		
-		out.write("<html><head>");
+		out.write("<!DOCTYPE html>\n<html><head>");
 		
-		Common.outputJquery(out);
+		out.write("<script type=\"text/javascript\" src=\"//code.jquery.com/jquery-1.10.2.min.js\"></script>");
+		out.write("<script type=\"text/javascript\" src=\"//code.jquery.com/ui/1.10.3/jquery-ui.min.js\"></script>");
+		out.write("<link href=\"//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css\" rel=\"stylesheet\" type=\"text/css\"/>");
 
 		//Load DivRep Stuff
 		out.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/divrep.css\" />");
 		out.write("<script type=\"text/javascript\" src=\"divrep.js\"></script>");
+		
+		//jquery-fileupload plugins
+		out.write("<script type=\"text/javascript\" src=\"jquery.iframe-transport.js\"></script>");	
+		out.write("<script type=\"text/javascript\" src=\"jquery.fileupload.js\"></script>");	
 		
 		out.write("</head><body><div id=\"content\">");		
 		out.write("<h1>Sample Upload Form</h1>");
@@ -82,7 +88,7 @@ public class Upload extends HttpServlet {
 							System.out.println(st);
 							status.setHtml(st);
 							status.redraw();
-							this.alert(st);
+							//this.alert(st);
 						}
 					}
 				}

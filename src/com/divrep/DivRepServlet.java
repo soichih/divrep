@@ -63,19 +63,7 @@ final public class DivRepServlet extends HttpServlet {
 			
 			//dipatch divrep event handler
 			try {
-				switch(request.getMethod()) {
-				case "POST":
-					div.doPost(request,  response);
-					break;
-				/*
-				case "PUT":
-					div.doPut(request, response);
-					break;
-				*/
-				default: 
-					//assume get
-					div.doGet(request, response);
-				}
+				div.doRequest(request, response);
 			} catch(Exception e) {
 				response.getWriter().print("alert('"+StringEscapeUtils.escapeJavaScript(e.toString())+"');");
 			}

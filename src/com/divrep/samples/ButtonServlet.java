@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.divrep.common.DivRepButton;
-import com.divrep.samples.CalculatorServlet.CalculatorDE;
 import com.divrep.*;
 
 public class ButtonServlet extends HttpServlet {
@@ -18,8 +17,9 @@ public class ButtonServlet extends HttpServlet {
 		final PrintWriter out = response.getWriter();
 		out.write("<html><head>");
 		
-		//Load jQuery before divrep.js
-		out.write("<script type=\"text/javascript\" src=\"jquery-1.7.1.min.js\"></script>");
+		out.write("<script type=\"text/javascript\" src=\"//code.jquery.com/jquery-1.10.2.min.js\"></script>");
+		out.write("<script type=\"text/javascript\" src=\"//code.jquery.com/ui/1.10.3/jquery-ui.min.js\"></script>");
+		out.write("<link href=\"//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css\" rel=\"stylesheet\" type=\"text/css\"/>");
 		
 		out.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/divrep.css\" />");
 		out.write("<script type=\"text/javascript\" src=\"divrep.js\"></script>");

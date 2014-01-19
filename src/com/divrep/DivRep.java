@@ -10,6 +10,7 @@ import java.util.Collections;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import com.divrep.DivRepPage;
@@ -122,7 +123,7 @@ public abstract class DivRep implements Serializable {
 	
 	public String getNodeID() { return nodeid; }
 
-	class EscapeDoubleQuoteWriter extends PrintWriter
+	class Base64Writer extends PrintWriter
 	{
 		public void write(char[] buf, int off, int len) {
 			// TODO Auto-generated method stub
@@ -147,12 +148,13 @@ public abstract class DivRep implements Serializable {
 		}
 
 		OutputStream out;
-		public EscapeDoubleQuoteWriter(PrintWriter out2) {
+		public Base64Writer(PrintWriter out2) {
 			super(out2);
 		}
 		
 		private void escapeAndWrite(String str) {
-			super.write(StringEscapeUtils.escapeJavaScript(str));
+			String encoded = Base64.encodeBase64String(str.getBytes());
+			super.write(encoded);
 			//super.write(" ");//prevent colliding with next string
 		}
 		
@@ -165,10 +167,10 @@ public abstract class DivRep implements Serializable {
 		
 		//find child nodes who needs update
 		if(needupdate) {
-			out.write("divrep_replace($(\"#"+nodeid+"\"), \"");
-			EscapeDoubleQuoteWriter writer = new EscapeDoubleQuoteWriter(out);
+			out.write("divrep_replace(\""+nodeid+"\", \"");
+			Base64Writer writer = new Base64Writer(out);
 			render(writer);	
-			out.write("\", \""+getClass().getName()+ " " + getNodeID() + "\");");
+			out.write("\");");
 			
 			//I don't need to update any of my child now..
 			setNeedupdate(false);
@@ -206,8 +208,8 @@ public abstract class DivRep implements Serializable {
 	
 	abstract public void render(PrintWriter out);
 		
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
-	{			
+	public void doRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{		
 		String action = request.getParameter("action");		
 		if(action == null) {
 			action = "event";
@@ -223,13 +225,14 @@ public abstract class DivRep implements Serializable {
 			response.setContentType("text/html");
 			render(writer);
 		} else if(action.equals("request")) {
+			//request only.. don't route to event handler
 			//it could be any content type - let handler decide
-			this.onRequest(request, response);
+			onRequest(request, response);
 		} else {
 			//normal divrep event
 			PrintWriter out = response.getWriter();
-			response.setContentType("text/javascript");
-			DivRepEvent e = new DivRepEvent(action, value);
+			response.setContentType("text/html"); //I need to set this to text/html instead of text/javascript to prevent IE8/9 from downloading javascript instead of executing it.
+			DivRepEvent e = new DivRepEvent(action, value, request, response);
 			DivRepPage page = getPageRoot();
 			
 			//handle my event handler
@@ -256,47 +259,13 @@ public abstract class DivRep implements Serializable {
 		}
 	}
 	
-	//this looks awefully similar to someparts on doGet()
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException
-	{			
-		if(System.getProperty("debug") != null) {
-			System.out.println(getClass().getName() + " post nodeid=" + nodeid);
-		}
-		
-		PrintWriter out = response.getWriter();
-		response.setContentType("text/javascript");
-		
-		onPost(request, response);
-		
-		DivRepPage page = getPageRoot();
-		//output page modified flag - I need to do this immediately or divrep_redirect call on other thread will be called first and the
-		//flag will not get update in time
-		if(page.isModified()) {
-			out.write("divrep_modified(true);");
-		} else {
-			out.write("divrep_modified(false);");			
-		}
-		
-		//if redirect is set, we don't need to do any update
-		if(page.getRedirect() != null) {
-			out.write("divrep_redirect(\""+getRedirect()+"\");");
-			setRedirect(null);
-			return;
-		}
-
-		page.outputUpdatecode(out);
-		page.flushJavascript(out);//needs to emit *after* divrep_replace(s)
-	}
-	
 	//events are things like click, drag, change.. you are responsible for updating 
 	//the internal state of the target div, and framework will call outputUpdatecode()
 	//to emit re-load request which will then re-render the divs that are changed.
 	//Override this to handle local events (for remote events, use listener)
 	abstract protected void onEvent(DivRepEvent e);
 	
-	//request are things like outputting XML or JSON back to browser without changing
-	//any internal state. it's like load but it doesn't return html necessary. it could
-	//be XML, JSON, Image, etc.. The framework will not emit any update code
+	//set action=request to call onRequest without doing any of the usual divrep event handling / output
 	protected void onRequest(HttpServletRequest request, HttpServletResponse response) {}
 	
 	//currently catch all for all post request made on a specific divrep node (used for upload, for example)

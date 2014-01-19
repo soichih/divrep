@@ -26,8 +26,9 @@ public class CalculatorServlet extends HttpServlet {
 
 		out.write("<!doctype html><html><head>");
 		
-		//Load jQuery
-		out.write("<script type=\"text/javascript\" src=\"jquery-1.7.1.min.js\"></script>");
+		out.write("<script type=\"text/javascript\" src=\"//code.jquery.com/jquery-1.10.2.min.js\"></script>");
+		out.write("<script type=\"text/javascript\" src=\"//code.jquery.com/ui/1.10.3/jquery-ui.min.js\"></script>");
+		out.write("<link href=\"//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css\" rel=\"stylesheet\" type=\"text/css\"/>");
 
 		out.write("<style type=\"text/css\"> * { padding: 0px; margin: 0px; }\n");
 		out.write(".logic {padding: 4px; border: 1px solid black; color: black;}\n");

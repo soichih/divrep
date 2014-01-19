@@ -72,11 +72,26 @@ public class DivRepUpload extends DivRepFormElement<String> {
 			int random = (int)(Math.random()*10000);
 			out.write("<input ");
 			renderInputClass(out);
-			out.write("id=\""+getNodeID()+"_input"+random+"\" type=\"file\" "+multiple+" onchange=\"divrep_fileupload('"+getNodeID()+"', this);\""+disabled_text+">");
-			/*
+			out.write("id=\""+getNodeID()+"_input"+random+"\" type=\"file\" "+multiple+" "+disabled_text+">");
+			
 			out.write("<script type=\"text/javascript\">\n");						
+			out.write("$('#"+getNodeID()+"_input"+random+"').fileupload({\n");	
+			out.write("        url: \"divrep?action=upload&nodeid="+getNodeID()+"\",\n");	
+			//out.write("		   contentType: \"application/x-www-form-urlencoded; charset=UTF-8\",//IE doesn't set charset correctly..\n");
+			out.write("        dataType: 'script',\n");	
+			//out.write("        done: function (e, data) {\n");	
+			//out.write("            console.log(data);\n");	
+			//out.write("        },\n");	
+			out.write(" 	   add: function (e, data) {\n");	
+			//out.write("				data.context = $('<p/>').text('Uploading...').appendTo(document.body);\n");	
+			out.write("    			data.submit();\n");	
+			out.write("			},\n");	
+			//out.write("        progressall: function (e, data) {\n");	
+			//out.write("        	console.log(data);\n");	
+			//out.write("        }\n");	
+			out.write("});\n");	
 			out.write("</script>");
-			*/
+			
 			if(isRequired()) {
 				out.print(lab.RequiredFieldNote());
 			}
@@ -90,25 +105,18 @@ public class DivRepUpload extends DivRepFormElement<String> {
 		if(isDisabled()) return;
 		
 		if(e.action.equals("upload")) {
-			setValue(((String)e.value).trim());
-			setFormModified();
-			validate();
+			try {
+				List<FileItem> files = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(e.request);
+				onUpload(files);
+			} catch (FileUploadException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
 		} else {
 			System.out.println("unknown action: " + e.action);
 		}
 	}
-	
-	public void onPost(HttpServletRequest request, HttpServletResponse response) {
-		//System.out.println("post request received");
-		try {
-			List<FileItem> files = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-			onUpload(files);
-		} catch (FileUploadException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+		
 	//override this to process received files
 	//following is just a sample of what you can do with FileItem
 	public void onUpload(List<FileItem> files) {
