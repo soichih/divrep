@@ -1,12 +1,16 @@
 package com.divrep.common;
 
 import java.io.PrintWriter;
+
 import com.divrep.i18n.Labels;
+
 import org.apache.commons.lang.StringEscapeUtils;
+
 import com.divrep.DivRep;
 import com.divrep.DivRepEvent;
 
 //This DivRep requires jQuery-UI
+@Deprecated //use bootstrap dialog instead - doesn't seem to be actively supported anymore
 abstract public class DivRepDialog extends DivRep {
 
 	public class DivRepDialogException extends RuntimeException {
@@ -99,7 +103,7 @@ abstract public class DivRepDialog extends DivRep {
 				String width_str = (width==null?"'auto'":width.toString());
 				String height_str = (height==null?"'auto'":height.toString());
 				//for some reason, I need to wrap divrep() call for close event around timeout... or Firefox will blow up.
-				out.write("$(\"#"+getNodeID()+"_dialog\").dialog({open: function(event, ui) {$('#"+getNodeID()+"').removeAttr('oked');}, close: function(event, ui) {if(!$('#"+getNodeID()+"').attr('oked')) setTimeout(\"divrep('"+getNodeID()+"', null, 'cancel');\", 0);}, autoOpen: false, closeOnEscape: true, bgiframe: true, resizable: false, width: "+width_str+", height: "+height_str+", modal: true");
+				out.write("$(\"#"+getNodeID()+"_dialog\").dialog({open: function(event, ui) {$('#"+getNodeID()+"').removeAttr('oked');}, close: function(event, ui) {if(!$('#"+getNodeID()+"').attr('oked')) setTimeout(\"divrep('"+getNodeID()+"', null, 'cancel');\", 0);}, autoOpen: false, closeOnEscape: true, width: "+width_str+", height: "+height_str+", modal: true");
 			
 				out.write(",buttons: {");
 				out.write(Labels.getInstance().OK() + ": function() {$('#"+getNodeID()+"').attr('oked', true); divrep('"+getNodeID()+"', null, 'submit');}");
@@ -112,9 +116,9 @@ abstract public class DivRepDialog extends DivRep {
 				
 				if(enter_to_submit) {
 					//This feature doesn't work on IE
-					out.write("if(!$.browser.msie) {");
+					//out.write("if(!$.browser.msie) {");
 						out.write("$(\"#"+getNodeID()+"_dialog\").bind(\"keydown\", function(e) {if (e.keyCode == 13) {$(\":focus\").blur(); $('#"+getNodeID()+"').attr('oked', true); divrep('"+getNodeID()+"', e, 'submit');}});");
-					out.write("}");
+					//out.write("}");
 				}
 				
 			out.write("});");
