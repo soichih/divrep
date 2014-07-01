@@ -1,13 +1,13 @@
 package com.divrep.common;
 
 import java.io.PrintWriter;
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
 import com.divrep.DivRep;
 import com.divrep.DivRepEvent;
+import com.divrep.DivRepEventListener;
 
 public class DivRepButton extends DivRepFormElement {
 	String title;
@@ -16,19 +16,7 @@ public class DivRepButton extends DivRepFormElement {
 	public void setToolTip(String t) {
 		tooltip = t;
 	}
-	
-	private ArrayList<String> classes = new ArrayList<String>();
-	public void addClass(String _class) {
-		classes.add(_class);
-	}
-	protected void renderClass(PrintWriter out) {
-		out.write("class=\"");
-		for(String _class : classes) {
-			out.write(_class);
-			out.write(" ");
-		}
-		out.write("\" ");
-	}
+
 	
 	static public enum Style { BUTTON, ALINK, IMAGE, HTML };
 	Style style = Style.BUTTON;
@@ -50,6 +38,15 @@ public class DivRepButton extends DivRepFormElement {
 	public void setTitle(String _title) {
 		title = _title;
 	}
+	public void setDisabled(Boolean b) {
+		super.setDisabled(b);
+		if(b) {
+			addClass("disabled");
+		} else {
+			removeClass("disabled");
+		}
+	}
+	
 	public void render(PrintWriter out) {
 		if(isHidden()) return; //TODO - not sure if we need to display display: none button
 
@@ -60,39 +57,58 @@ public class DivRepButton extends DivRepFormElement {
 		
 		String tip = "";
 		if(tooltip != null) {
-			tip = "title=\""+StringEscapeUtils.escapeHtml(tooltip)+"\"";
+			tip = "data-toggle=\"tooltip\" title=\""+StringEscapeUtils.escapeHtml(tooltip)+"\"";
 		}
 		
 		switch(style) {
 		case BUTTON:
 			out.write("<input "+tip);
 			renderClass(out);
-			out.write("type='button' id='"+getNodeID()+"' onclick='"+js+"' value='"+StringEscapeUtils.escapeHtml(title)+"' />");
+			out.write("type='button' id='"+getNodeID()+"' value='"+StringEscapeUtils.escapeHtml(title)+"'");
+			if(isDisabled()) out.write(" disabled");
+			else out.write(" onclick='"+js+"'");
+			out.write(" />");
 			break;
 		case ALINK:
 			out.write("<a "+tip);
 			renderClass(out);
-			out.write("href='' id='"+getNodeID()+"' onclick='"+js+"'>"+
-				StringEscapeUtils.escapeHtml(title)+"</a>");
+			out.write("href='javascript:void(0)' id='"+getNodeID()+"'");
+			if(!isDisabled()) out.write(" onclick='"+js+"'");
+			out.write(">");
+			out.write(StringEscapeUtils.escapeHtml(title)+"</a>");
 			break;
 		case IMAGE:
-			out.write("<a ");
+			out.write("<a "+tip);
 			renderClass(out);
-			out.write("href='' id='"+getNodeID()+"' onclick='"+js+"'><img "+tip+" src='"+StringEscapeUtils.escapeHtml(title)+"' alt='button'/></a>");
+			out.write("href='javascript:void(0)' id='"+getNodeID()+"'");
+			if(!isDisabled()) out.write(" onclick='"+js+"'");
+			out.write(">");
+			out.write("<img src='"+StringEscapeUtils.escapeHtml(title)+"' alt='button'/></a>");
 			break;
 		case HTML:
 			//TODO - need to add support for tooltip
-			out.write("<div id='"+getNodeID()+"' onclick='"+js+"' ");
+			out.write("<div id='"+getNodeID()+"'");
 			renderClass(out);
+			if(!isDisabled()) out.write(" onclick='"+js+"'");
 			out.write(">");
 			out.write(title);
 			out.write("</div>");
 			break;
 		}
 	}
+	
+	protected void onClick(DivRepEvent e) {}
 
-	//user should override this to intercept click event.
-	//or use event listener
-	protected void onEvent(DivRepEvent e) {}
+	//final to prevent child class to override onEvent directly.. Use onClick instead.. 
+	protected final void onEvent(DivRepEvent e) {
+		if(isDisabled()) return;
+		onClick(e);
+	}
+	
+	@Deprecated 
+	//danger: use onClick instead (which doesn't fire if button is disabled)
+	public final void addEventListener(DivRepEventListener listener) {
+		super.addEventListener(listener);
+	}
 
 }

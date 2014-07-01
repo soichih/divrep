@@ -2,6 +2,7 @@ package com.divrep.common;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -15,9 +16,12 @@ abstract public class DivRepFormElement<ValueType> extends DivRep {
 	
 	//class used to render the parent div element (you can use it to render it in non-div-ish way like inline)
 	//the derived element has to use this in order for it to actually take effect (of course)
-	private ArrayList<String> classes = new ArrayList<String>();
+	private HashSet<String> classes = new HashSet<String>();
 	public void addClass(String _class) {
 		classes.add(_class);
+	}
+	public void removeClass(String _class) {
+		classes.remove(_class);
 	}
 	protected void renderClass(PrintWriter out) {
 		out.write("class=\"");
@@ -25,9 +29,8 @@ abstract public class DivRepFormElement<ValueType> extends DivRep {
 			out.write(_class);
 			out.write(" ");
 		}
-		out.write("\"");
+		out.write("\" ");
 	}
-	
 	protected DivRepFormElement(DivRep parent) {
 		super(parent);
 	}
@@ -65,22 +68,6 @@ abstract public class DivRepFormElement<ValueType> extends DivRep {
 	public Boolean getValid() { 
 		return valid; 
 	}
-	
-	/*
-	//set DivRep page's modified flag to true IF this element belongs to a form
-	protected void setFormModified() {
-		DivRep parent = getParent();
-		while(parent != null) {
-			if(parent instanceof DivRepForm) {
-				modified(true);
-				return;
-			}
-			parent = parent.getParent();
-		}
-	}
-	*/
-
-	
 	
 	//Override this to do custom validation (make sure to call super.validate() inside)
 	//Also, you need to override this to do its own child element loop if one of the element is expected to be
@@ -162,5 +149,4 @@ abstract public class DivRepFormElement<ValueType> extends DivRep {
 	private Boolean required = false;
 	public Boolean isRequired() { return required; }
 	public void setRequired(Boolean b) { required = b; }
-
 }

@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -263,6 +262,7 @@ public abstract class DivRep implements Serializable {
 	//the internal state of the target div, and framework will call outputUpdatecode()
 	//to emit re-load request which will then re-render the divs that are changed.
 	//Override this to handle local events (for remote events, use listener)
+	//TODO - I think onEvent is somewhat redundant with notifyListener - maybe deprecate this soon?
 	abstract protected void onEvent(DivRepEvent e);
 	
 	//set action=request to call onRequest without doing any of the usual divrep event handling / output

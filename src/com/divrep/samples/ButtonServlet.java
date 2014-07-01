@@ -51,6 +51,7 @@ public class ButtonServlet extends HttpServlet {
             //instantiate the buttons
             normal_button = new DivRepButton(this, "Normal Button");
             normal_button.setToolTip("Hello this is a normal button.");
+            normal_button.setDisabled(true);
             normal_button.addEventListener(new DivRepEventListener() {
                 public void handleEvent(DivRepEvent e) {
                     alert("You clicked a normal button");
@@ -60,6 +61,7 @@ public class ButtonServlet extends HttpServlet {
             link_button = new DivRepButton(this, "Link Button");
             link_button.setToolTip("Hello this is a link button. Click me");
             link_button.setStyle(DivRepButton.Style.ALINK);
+            link_button.setDisabled(true);
             link_button.addEventListener(new DivRepEventListener() {
                 public void handleEvent(DivRepEvent e) {
                     alert("You clicked a link button");
@@ -69,6 +71,7 @@ public class ButtonServlet extends HttpServlet {
             image_button = new DivRepButton(this, "css/images/osg_logo.png");
             image_button.setToolTip("Hello this is a image button.");
             image_button.setStyle(DivRepButton.Style.IMAGE);
+            image_button.setDisabled(true);
             image_button.addEventListener(new DivRepEventListener() {
                 public void handleEvent(DivRepEvent e) {
                     alert("You clicked a image button");
@@ -77,6 +80,7 @@ public class ButtonServlet extends HttpServlet {
 
             html_button = new DivRepButton(this, "<b>html content</b><i>italic</i>");
             html_button.setStyle(DivRepButton.Style.HTML);
+            html_button.setDisabled(true);
             html_button.addEventListener(new DivRepEventListener() {
                 public void handleEvent(DivRepEvent e) {
                     alert("You clicked a HTML button");
