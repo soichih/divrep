@@ -16,3 +16,5 @@ Applications built with DivRep will be inherently more secure since user can not
 
 
 DivRep handles View and Controller part of what is traditionally known as MVC framework. Unlike many other AJAX web frameworks DivRep's goal is to let user who are already familiar with their web application to keep as much of the code as possible while allowing them to add AJAX-enabled section of the page that are usually hard to implement using more traditional tools.
+
+Soichi
