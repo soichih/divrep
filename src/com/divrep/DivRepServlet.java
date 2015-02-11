@@ -13,7 +13,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 //This class is to process all DivRep Event that comes from DivRep client library.
 //In order to avoid mistake by user, I am setting this final class.
 final public class DivRepServlet extends HttpServlet { 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; 
 	
     public DivRepServlet() {
         super();
@@ -65,7 +65,8 @@ final public class DivRepServlet extends HttpServlet {
 			try {
 				div.doRequest(request, response);
 			} catch(Exception e) {
-				response.getWriter().print("alert('"+StringEscapeUtils.escapeJavaScript(e.toString())+"');");
+				response.getWriter().print("alert('Oops.. Something went wrong while processing your request. Please contact your support staff.');");
+				response.getWriter().print("console.log('"+StringEscapeUtils.escapeJavaScript(e.toString())+"');");
 			}
 			
 			//reset session (for Google App Engine - serialization)
